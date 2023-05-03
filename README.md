@@ -1,5 +1,7 @@
 # js-calculator
 
+GitHub Page [link](https://devcodepush.github.io/js-calculator/)
+
 ## Instruction
 Here is a step-by-step guide on how to build a calculator project based on the HTML, CSS, and JavaScript
 
