@@ -96,7 +96,7 @@ Here is a step-by-step guide on how to build a calculator project based on the H
 ### You can also!
 That's it! With these steps, you should be able to create a basic calculator project similar to the one you provided.
 
-#### Some Practical Lessons
+#### Some Practical Lessons I learned!
 
 * Should I create the elements in html or javascript?
 
