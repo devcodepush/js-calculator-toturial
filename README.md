@@ -9,7 +9,7 @@ Here is a step-by-step guide on how to build a calculator project based on the H
 
 * Start by creating a new HTML file and save it with a .html extension. Add the basic HTML structure with the necessary meta tags, title, and a link to the CSS file.
 
-```html
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +27,7 @@ Here is a step-by-step guide on how to build a calculator project based on the H
 
 * Inside the body tag, create a div with the id "calculator" and another div inside it with the id "buttons-container". Add an input element with the id "display" inside the first div.
 
-```html
+```
 <body>
     <div class="calculator">
 
@@ -43,7 +43,7 @@ Here is a step-by-step guide on how to build a calculator project based on the H
 
 * Create buttons for each of the numbers, operators, clear, and equals, and add the appropriate values and ids to each button.
 
-```html
+```
 <body>
     <div class="calculator">
         <input id="calculator-display" type="text" class="calculator__display" readonly>
@@ -71,32 +71,181 @@ Here is a step-by-step guide on how to build a calculator project based on the H
 </body>
 ```
 
-* Save the HTML file and create a new CSS file with a .css extension. Add styles to each of the buttons and the display element.
+* Save the HTML file and create a new CSS file with a .css extension. Add styles to CSS file following this principle:
+
+###### Test the styles
+###### Optimize performance by techniques like reducing the size of the CSS file, and using techniques like lazy loading to reduce the initial load time.
+###### Improve accessibility by sing CSS techniques like using clear and readable fonts, using high-contrast colors, and providing alternative text for images.
+###### Refactor codes by using a preprocessor like Sass, following a modular architecture like BEM or SMACSS
+
+
+```
+body {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+  background-color: rgba(44, 24, 221, 0.644);
+}
+
+#calculator {
+  width: 400px;
+  height: 300px;
+  background-color: rgba(44, 24, 221, 0.644);
+  border-radius: 5px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  font-family: Arial, sans-serif;
+  font-size: 1.2em;
+}
+
+#display {
+  background-color: #ffffff;
+  color: black;
+  width: 100%;
+  height: 60px;
+  text-align: right;
+  font-size: 2em;
+  padding: 10px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+}
+
+#buttons-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+button {
+  width: 25%;
+  height: 60px;
+  font-size: 1.5em;
+  border: none;
+  outline: none;
+  background-color: #e4e4e4;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+@media only screen and (max-width: 400px) {
+  #buttons-container button {
+    width: 50%;
+  }
+}
+```
 
 * Save the CSS file and create a new JavaScript file with a .js extension.
 
-* Start by getting references to the necessary HTML elements using the getElementById() method.
+* Planning and creating architecture of JavaScript code
 
-* Add an event listener to the calculatorButtons element using the addEventListener() method. The listener should listen for a 'click' event and then execute a function that checks if the clicked element is a button.
+###### Review the project requirements
+###### Determine the appropriate programming patterns and frameworks such as React or Vue.js, or a more traditional like vanilla JavaScript and DOM manipulation
+###### Plan the structure of the JavaScript code by breaking down the project requirements into smaller, manageable tasks.
+###### Organize the list of features and functionality into groups
+###### Write pseudocode to outline the steps needed to achieve each task.
+###### Create a flowchart or diagram that outlines the flow of the application and the relationships between different components.
+###### Determine the best data structures and algorithms to use for each task
+###### Use code quality tools such as linters and unit testing frameworks
+###### Review and Refactor codes 
 
-* Inside the function, check if the clicked button is a number, operator, clear, or equals button using the isNumber() and isOperator() functions.
+* Start coding by writing clean code, avoiding global variables
 
-* If the clicked button is a number or operator, append the corresponding value to the display element using the += operator.
 
-* If the clicked button is the clear button, set the value of the display element to an empty string.
+```
+// Get references to HTML elements
+const calculatorButtons = document.getElementById('buttons-container');
+const display = document.getElementById('display');
+const equalButton = document.getElementById('equal');
 
-* If the clicked button is the equals button, get the expression from the display element, split it into operands and operators, and then evaluate the expression using a switch statement.
+// Add event listener to the calculator buttons
+calculatorButtons.addEventListener('click', (event) => {
+  if (event.target.tagName === 'BUTTON') {
+    const buttonValue = event.target.value;
+      
+    if (isNumber(buttonValue)) {
+      // Append the number value to the display
+      display.value += buttonValue;
+    } else if (isOperator(buttonValue)) {
+      // Perform the operator operation on the values displayed
+      display.value += buttonValue;
+    } else if (buttonValue === 'C') {
+      // Clear the display
+      display.value = '';
+    } else if (buttonValue === '=') {
+      // Calculate and display the result
+      display.value = eval(display.value);
+    }
+  }
+});
 
-* Finally, set the value of the display element to the result of the evaluated expression.
+// Add event listener to the equal button
+equalButton.addEventListener('click', () => {
+    // Get the arithmetic expression from the display
+    const expression = display.value;
+  
+    // Split the expression into operands and operators
+    const operands = expression.split(/[-+/*]/).map(parseFloat);
+    const operators = expression.split(/\d+/).filter(Boolean);
+  
+    // Evaluate the expression
+    let result = operands[0];
+    for (let i = 0; i < operators.length; i++) {
+      const operator = operators[i];
+      const operand = operands[i+1];
+      switch (operator) {
+        case '+':
+          result += operand;
+          break;
+        case '-':
+          result -= operand;
+          break;
+        case '*':
+          result *= operand;
+          break;
+        case '/':
+          result /= operand;
+          break;
+        default:
+          console.error('Invalid operator:', operator);
+      }
+    }
+  
+    // Display the result
+    display.value = result;
+  });
 
-* Save the JavaScript file and link it to the HTML file using the script tag.
+  
+// Check if the value is a number
+function isNumber(value) {
+  return !isNaN(value);
+}
 
-* Open the HTML file in a browser and test the calculator functionality.
+// Check if the value is an operator
+function isOperator(value) {
+  return value === '+' || value === '-' || value === '*' || value === '/';
+}
+```
+
+### Testing and Debugging the codes
+
+Tools we normally use for testing are:
+
+* Console
+* Chrome DevTools, Visual Studio Code Debugger.
+* frameworks, such as Jest or Mocha, are used to automate the testing of JavaScript code
+* Linters, such as ESLint or JSLint, are used to analyze code for errors and potential problems
+* Code editors such as Visual Studio Code 
 
 ### You can also!
-That's it! With these steps, you should be able to create a basic calculator project similar to the one you provided.
+That's it! With these steps, you should be able to create a basic calculator project. Lets keep learning how to code!
 
-#### Some Practical Lessons I learned!
+
+## My Questions, Doubts and Challenges!
 
 * Should I create the elements in html or javascript?
 
@@ -128,6 +277,15 @@ To streamline this process, we might use a tool like a code editor with built-in
 If you have 1000 buttons instead of 16, it would not be practical to create them manually in HTML. In this case, we use JavaScript to generate the buttons dynamically 
 by using a loop method in JavaScript to create and append the buttons to the DOM
 
+* What should we do after creating basic HTML structures?
+
+###### Adding some styles to the CSS file with this guideline:
+
+- Use a CSS preprocessor like Sass to create more readable and reusable styles
+- Follow a naming convention: Using a BEM (Block Element Modifier) or SMACSS (Scalable and Modular Architecture for CSS)
+- Use a CSS framework: Bootstrap or Materialize to speed up the development 
+- Use a CSS reset:  Normalize.css or Reset.css to ensure that the styles are consistent across different browsers
+- Use a CSS linter:like Stylelint to ensure that the code is free of errors
 
 
 
