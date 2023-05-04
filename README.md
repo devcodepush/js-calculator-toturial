@@ -146,6 +146,7 @@ button {
 ###### Review the project requirements
 ###### Determine the appropriate programming patterns and frameworks such as React or Vue.js, or a more traditional like vanilla JavaScript and DOM manipulation
 ###### Plan the structure of the JavaScript code by breaking down the project requirements into smaller, manageable tasks.
+###### Plan to divide the page components 
 ###### Organize the list of features and functionality into groups
 ###### Write pseudocode to outline the steps needed to achieve each task.
 ###### Create a flowchart or diagram that outlines the flow of the application and the relationships between different components.
