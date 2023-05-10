@@ -1,4 +1,4 @@
-# js-calculator
+# js-calculator-tutorial
 
 GitHub Page [link](https://devcodepush.github.io/js-calculator/)
 
